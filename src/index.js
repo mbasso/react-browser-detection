@@ -1,4 +1,5 @@
 import React from 'react';
+import { bool, object } from 'prop-types';
 
 class BrowserDetection extends React.Component {
 
@@ -65,8 +66,8 @@ BrowserDetection.defaultProps = {
 };
 
 BrowserDetection.propTypes = {
-  children: React.PropTypes.object.isRequired,
-  once: React.PropTypes.bool,
+  children: object.isRequired,
+  once: bool,
 };
 
 export default BrowserDetection;
