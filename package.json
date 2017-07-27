@@ -1,6 +1,6 @@
 {
   "name": "react-browser-detection",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React component to detect browser",
   "main": "lib/index.js",
   "scripts": {
@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/mbasso/react-browser-detection#readme",
   "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.0"
+    "react": "^15.0.0"
   },
   "devDependencies": {
     "babel-cli": "6.5.1",
