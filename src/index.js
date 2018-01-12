@@ -6,14 +6,14 @@ class BrowserDetection extends React.Component {
   constructor(props) {
     super(props);
 
-    const isOpera = (!!window.opr && !!opr.addons) || !!window.opera
-                    || navigator.userAgent.indexOf(' OPR/') >= 0;
+    const isOpera = window&&((!!window.opr && !!opr.addons) || !!window.opera
+                    || navigator.userAgent.indexOf(' OPR/') >= 0);
     const isFirefox = typeof InstallTrigger !== 'undefined';
-    const isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+    const isSafari = window&&(Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0);
     const isIE = /*@cc_on!@*/false || !!document.documentMode;
-    const isEdge = !(isIE) && !!window.StyleMedia;
-    const isChrome = !!window.chrome && !!window.chrome.webstore;
-    const isBlink = (isChrome || isOpera) && !!window.CSS;
+    const isEdge = window&&!(isIE) && !!window.StyleMedia;
+    const isChrome = window&&!!window.chrome && !!window.chrome.webstore;
+    const isBlink = window&&(isChrome || isOpera) && !!window.CSS;
     let browser;
 
     if (isOpera) {
