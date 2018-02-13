@@ -23,6 +23,7 @@ import BrowserDetection from 'react-browser-detection';
 
 const browserHandler = {
   chrome: () => <div>Chrome is fantastic!</div>,
+  googlebot: () => <div>Hi GoogleBot!</div>,
   default: (browser) => <div>Hi {browser}!</div>,
 };
 
