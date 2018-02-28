@@ -9,11 +9,12 @@ class BrowserDetection extends React.Component {
     const isOpera = (!!window.opr && !!window.opr.addons) || !!window.opera
                     || navigator.userAgent.indexOf(' OPR/') >= 0;
     const isFirefox = typeof InstallTrigger !== 'undefined';
-    const isChrome = !!window.chrome && !!window.chrome.webstore;
+    const isChrome = !!window.chrome && !!window.chrome.webstore && navigator.userAgent.toLowerCase().indexOf('googlebot') === -1;
     const isSafari = !isChrome && navigator.userAgent.toLowerCase().indexOf('safari') !== -1;
     const isIE = /*@cc_on!@*/false || !!document.documentMode;
     const isEdge = !(isIE) && !!window.StyleMedia;
     const isBlink = (isChrome || isOpera) && !!window.CSS;
+    const isGoogleBot = navigator.userAgent.toLowerCase().indexOf('googlebot') !== -1;
     let browser;
 
     if (isOpera) {
@@ -30,7 +31,10 @@ class BrowserDetection extends React.Component {
       browser = 'chrome';
     } else if (isBlink) {
       browser = 'blink';
-    } else {
+    } else if (isGoogleBot) {
+      browser = 'googlebot';
+    }
+    else {
       browser = 'unknown';
     }
 
