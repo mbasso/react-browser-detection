@@ -1,77 +1,66 @@
 import React from 'react';
 import { bool, object } from 'prop-types';
 
-class BrowserDetection extends React.Component {
+export default class BrowserDetection extends React.Component {
+  static defaultProps = {
+    once: true,
+  };
+  
+  static propTypes = {
+    children: object.isRequired,
+    once: bool,
+  };
 
-  constructor(props) {
-    super(props);
+  constructor(...params) {
+    super(...params);
 
-    const isOpera = (!!window.opr && !!window.opr.addons) || !!window.opera
-                    || navigator.userAgent.indexOf(' OPR/') >= 0;
-    const isFirefox = typeof InstallTrigger !== 'undefined';
-    const isChrome = !!window.chrome && !!window.chrome.webstore && navigator.userAgent.toLowerCase().indexOf('googlebot') === -1;
-    const isSafari = !isChrome && navigator.userAgent.toLowerCase().indexOf('safari') !== -1;
     const isIE = /*@cc_on!@*/false || !!document.documentMode;
     const isEdge = !(isIE) && !!window.StyleMedia;
+    const isFirefox = typeof InstallTrigger !== 'undefined';
+    const isOpera = (!!window.opr && !!window.opr.addons) || !!window.opera
+                    || navigator.userAgent.indexOf(' OPR/') >= 0;
+    const isChrome = !!window.chrome && !!window.chrome.webstore && navigator.userAgent.toLowerCase().indexOf('googlebot') === -1;
+    const isSafari = !isChrome && navigator.userAgent.toLowerCase().indexOf('safari') !== -1;
     const isBlink = (isChrome || isOpera) && !!window.CSS;
     const isGoogleBot = navigator.userAgent.toLowerCase().indexOf('googlebot') !== -1;
     let browser;
 
-    if (isOpera) {
-      browser = 'opera';
-    } else if (isFirefox) {
-      browser = 'firefox';
-    } else if (isSafari) {
-      browser = 'safari';
-    } else if (isIE) {
+    if (isIE) {
       browser = 'ie';
     } else if (isEdge) {
       browser = 'edge';
+    } else if (isFirefox) {
+      browser = 'firefox';
+    } else if (isOpera) {
+      browser = 'opera';
     } else if (isChrome) {
       browser = 'chrome';
+    } else if (isSafari) {
+      browser = 'safari';
     } else if (isBlink) {
       browser = 'blink';
     } else if (isGoogleBot) {
       browser = 'googlebot';
-    }
-    else {
+    } else {
       browser = 'unknown';
     }
 
     this.state = {
       browser,
-      children: <div></div>,
     };
+    this.state.children = this.renderChildren();
   }
 
-  componentDidMount() {
-    this.setState(::this.getConfigs());
-  }
-
-  getConfigs() {
+  renderChildren = () => {
     const { children } = this.props;
     const { browser } = this.state;
-    const func = children[browser] || children.default;
-    return {
-      browser,
-      children: func(browser),
-    };
+    const render = children[browser] || children.default || (() => null);
+    return render(browser);
   }
 
   render() {
-    return this.props.once ? this.state.children : (() => {
-      return ::this.getConfigs().children;
-    })();
+    return this.props.once
+            ? this.state.children
+            : this.renderChildren();
   }
 }
-
-BrowserDetection.defaultProps = {
-  once: true,
-};
-
-BrowserDetection.propTypes = {
-  children: object.isRequired,
-  once: bool,
-};
-
-export default BrowserDetection;
