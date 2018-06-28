@@ -48,18 +48,18 @@ export default class BrowserDetection extends React.Component {
       browser = 'unknown';
     }
 
-    browser = (isAndroid ? 'android-' : '') + browser;
-
     this.state = {
       browser,
+      isAndroid
     };
     this.state.children = this.renderChildren();
   }
 
   renderChildren = () => {
     const { children } = this.props;
-    const { browser } = this.state;
-    const render = children[browser] || children.default || (() => null);
+    const { browser, isAndroid } = this.state;
+    const render = (isAndroid ? (children[`android-${browser}`] || children.android) : null)
+      || children[browser] || children.default || (() => null);
     return render(browser);
   }
 
