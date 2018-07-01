@@ -14,12 +14,15 @@ export default class BrowserDetection extends React.Component {
   constructor(...params) {
     super(...params);
 
+    const isAndroid = navigator.userAgent.toLowerCase().indexOf('android') !== -1;
     const isIE = /*@cc_on!@*/false || !!document.documentMode;
     const isEdge = !(isIE) && !!window.StyleMedia;
     const isFirefox = typeof InstallTrigger !== 'undefined';
     const isOpera = (!!window.opr && !!window.opr.addons) || !!window.opera
                     || navigator.userAgent.indexOf(' OPR/') >= 0;
-    const isChrome = !!window.chrome && !!window.chrome.webstore && navigator.userAgent.toLowerCase().indexOf('googlebot') === -1;
+    const isChrome = !!window.chrome &&
+                    (!!window.chrome.webstore || isAndroid) &&
+                    navigator.userAgent.toLowerCase().indexOf('googlebot') === -1;
     const isSafari = !isChrome && navigator.userAgent.toLowerCase().indexOf('safari') !== -1;
     const isBlink = (isChrome || isOpera) && !!window.CSS;
     const isGoogleBot = navigator.userAgent.toLowerCase().indexOf('googlebot') !== -1;
@@ -47,14 +50,16 @@ export default class BrowserDetection extends React.Component {
 
     this.state = {
       browser,
+      isAndroid
     };
     this.state.children = this.renderChildren();
   }
 
   renderChildren = () => {
     const { children } = this.props;
-    const { browser } = this.state;
-    const render = children[browser] || children.default || (() => null);
+    const { browser, isAndroid } = this.state;
+    const render = (isAndroid ? (children[`android-${browser}`] || children.android) : null)
+      || children[browser] || children.default || (() => null);
     return render(browser);
   }
 
