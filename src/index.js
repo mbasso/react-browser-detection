@@ -5,7 +5,7 @@ export default class BrowserDetection extends React.Component {
   static defaultProps = {
     once: true,
   };
-  
+
   static propTypes = {
     children: object.isRequired,
     once: bool,
@@ -15,15 +15,18 @@ export default class BrowserDetection extends React.Component {
     super(...params);
 
     const isAndroid = navigator.userAgent.toLowerCase().indexOf('android') !== -1;
+    // eslint-disable-next-line
     const isIE = /*@cc_on!@*/false || !!document.documentMode;
     const isEdge = !(isIE) && !!window.StyleMedia;
     const isFirefox = typeof InstallTrigger !== 'undefined';
     const isOpera = (!!window.opr && !!window.opr.addons) || !!window.opera
-                    || navigator.userAgent.indexOf(' OPR/') >= 0;
-    const isChrome = !!window.chrome &&
-                    (!!window.chrome.webstore || navigator.userAgent.toLowerCase().indexOf('google inc.') !== -1 
-                      || isAndroid) &&
-                    navigator.userAgent.toLowerCase().indexOf('googlebot') === -1;
+      || navigator.userAgent.indexOf(' OPR/') >= 0;
+    const isChrome = !!window.chrome && (
+      !!window.chrome.webstore
+      || navigator.userAgent.toLowerCase().indexOf('google inc.') !== -1
+      || isAndroid
+    ) &&
+      navigator.userAgent.toLowerCase().indexOf('googlebot') === -1;
     const isSafari = !isChrome && navigator.userAgent.toLowerCase().indexOf('safari') !== -1;
     const isBlink = (isChrome || isOpera) && !!window.CSS;
     const isGoogleBot = navigator.userAgent.toLowerCase().indexOf('googlebot') !== -1;
@@ -51,7 +54,7 @@ export default class BrowserDetection extends React.Component {
 
     this.state = {
       browser,
-      isAndroid
+      isAndroid,
     };
     this.state.children = this.renderChildren();
   }
@@ -66,7 +69,7 @@ export default class BrowserDetection extends React.Component {
 
   render() {
     return this.props.once
-            ? this.state.children
-            : this.renderChildren();
+      ? this.state.children
+      : this.renderChildren();
   }
 }
