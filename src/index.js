@@ -21,7 +21,7 @@ export default class BrowserDetection extends React.Component {
     const isOpera = (!!window.opr && !!window.opr.addons) || !!window.opera
                     || navigator.userAgent.indexOf(' OPR/') >= 0;
     const isChrome = !!window.chrome &&
-                    ((!!window.chrome.webstore || navigator.userAgent.toLowerCase().indexOf('google inc.')) 
+                    (!!window.chrome.webstore || navigator.userAgent.toLowerCase().indexOf('google inc.') !== -1 
                       || isAndroid) &&
                     navigator.userAgent.toLowerCase().indexOf('googlebot') === -1;
     const isSafari = !isChrome && navigator.userAgent.toLowerCase().indexOf('safari') !== -1;
