@@ -70,6 +70,18 @@ const browserHandler = {
 
 ```
 
+### Possible Browser Detection
+
+- ie
+- edge
+- firefox
+- opera
+- chrome
+- safari
+- blink
+- googlebot
+- unknown
+
 Handler determination goes from most to least specific.  It will first look for an `android-browserName` match and then `android` (assuming the OS is Android) then failing that it will look for `browserName` and finally will fallback to using `default`.  This allows you to custom tailor responses for each scenario, or to provide general cases.
 
 
