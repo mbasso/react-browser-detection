@@ -48,7 +48,7 @@ Here is the list of props used by the component.
 |Property   |Type   |Default   |Description   |
 |-----------|-------|----------|--------------|
 |once   |Bool    |true    |If ```true```, function contained in children prop will be call only once. If ```false```, it will be called on each render. Default ```true``` due to performance reasons   |
-|children   |Object { browserName: function(browserName){ return node; }  }    |    |An object containing functions to handle different browsers. Properties would be called like browsers: ```chrome```, ```firefox```, ```ie```, ```edge```, ```safari```, ```opera```, ```blink```, ```googlebot``` and ```default```. If specified, the component will use the function under the property with the name of the browser, otherwise, it will use ```default```. Each function take the browser name as parameter and must return a node     |
+|children   |Object { browserName: function(browserName){ return node; }  }    |    |An object containing functions to handle different browsers. Properties would be called like browsers: ```chrome```, ```firefox```, ```ie```, ```edge```, ```safari```, ```opera```, ```blink```, ```googlebot```, ```samsung``` and ```default```. If specified, the component will use the function under the property with the name of the browser, otherwise, it will use ```default```. Each function take the browser name as parameter and must return a node     |
 
 
 ### Determining the OS

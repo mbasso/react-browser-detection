@@ -16,6 +16,7 @@ export default class BrowserDetection extends React.Component {
 
     const isAndroid = navigator.userAgent.toLowerCase().indexOf('android') !== -1;
     const isGoogleBot = navigator.userAgent.toLowerCase().indexOf('googlebot') !== -1;
+    const isSamsungBrowser = navigator.userAgent.toLowerCase().indexOf('samsungbrowser') !== -1;
     // eslint-disable-next-line
     const isIE = /*@cc_on!@*/false || !!document.documentMode;
     const isEdge = !(isIE) && !!window.StyleMedia;
@@ -46,6 +47,8 @@ export default class BrowserDetection extends React.Component {
       browser = 'blink';
     } else if (isGoogleBot) {
       browser = 'googlebot';
+    } else if (isSamsungBrowser) {
+      browser = 'samsung';
     } else {
       browser = 'unknown';
     }
